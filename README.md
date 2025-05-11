@@ -4,7 +4,7 @@
 - **Form Fields** - https://github.com/BTU-Women-in-AI-Python-course-2025/python_lecture_13/blob/main/Additional%20resources/django_form_fields.md
 - **Model Form** - https://docs.djangoproject.com/en/5.1/topics/forms/modelforms/#modelform
 - **Model Field Custom validation** - https://docs.djangoproject.com/en/5.1/ref/validators/
-- **Get Object Or 404** - https://github.com/BTU-Women-AI-Python-course/Btu_Python_Lecture_13/blob/main/get_object_or_404.md
+- **Get Object Or 404** - https://github.com/BTU-Women-in-AI-Python-course-2025/python_lecture_13/blob/main/Additional%20resources/get_oject_or_404.md
 
 ## Additional sources to use
 
