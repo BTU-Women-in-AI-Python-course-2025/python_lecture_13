@@ -1,4 +1,5 @@
-from django.shortcuts import redirect, render
+from django.db.models import Q
+from django.shortcuts import redirect, render, get_object_or_404
 from blog.forms import BlogPostForm, BlogPostModelForm
 from blog.models import BlogPost, BannerImage
 
@@ -27,5 +28,14 @@ def create_blog_post_model_form(request):
         form = BlogPostModelForm()
     return render(request, template_name='create_blog_post_model_form.html', context={'form': form})
 
+
 def thank_you(request):
     return render(request, template_name='thank_you.html')
+
+
+def blog_detail(request, post_id):
+    post = get_object_or_404(BlogPost, id=post_id)
+    return render(request, template_name='blog_detail.html', context={'post': post})
+
+
+# BlogPost.objects.filter(Q(deleted=True) | Q(active=True), id=post_id)
