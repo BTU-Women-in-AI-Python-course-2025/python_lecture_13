@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from blog.forms import BlogPostForm, BlogPostModelForm
-from blog.models import BlogPost
+from blog.models import BlogPost, BannerImage
 
 
 def create_blog_post(request):
@@ -16,9 +16,12 @@ def create_blog_post(request):
 
 def create_blog_post_model_form(request):
     if request.method == 'POST':
-        form = BlogPostModelForm(request.POST)
+        form = BlogPostModelForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            blog_post = form.save()
+            banner_file = request.FILES.get('banner_image')
+            if banner_file:
+                BannerImage.objects.create(blog_post=blog_post, image=banner_file)
             return redirect('thank_you')
     else:
         form = BlogPostModelForm()
