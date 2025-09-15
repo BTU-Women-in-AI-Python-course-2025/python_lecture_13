@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from blog.forms import BlogPostForm
+from blog.forms import BlogPostForm, BlogPostModelForm
 from blog.models import BlogPost
 
 
@@ -13,6 +13,16 @@ def create_blog_post(request):
         form = BlogPostForm()
     return render(request, template_name='create_blog_post.html', context={'form': form})
 
+
+def create_blog_post_model_form(request):
+    if request.method == 'POST':
+        form = BlogPostModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('thank_you')
+    else:
+        form = BlogPostModelForm()
+    return render(request, template_name='create_blog_post_model_form.html', context={'form': form})
 
 def thank_you(request):
     return render(request, template_name='thank_you.html')

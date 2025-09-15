@@ -1,4 +1,5 @@
 from django import forms
+from blog.models import BlogPost
 
 
 class BlogPostForm(forms.Form):
@@ -14,3 +15,9 @@ class BlogPostForm(forms.Form):
             }
         ),
     )
+
+
+class BlogPostModelForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'text', 'active', 'document']
