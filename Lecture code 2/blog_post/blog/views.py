@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from blog.forms import BlogPostForm, BlogPostModelForm
 from blog.models import BlogPost, BlogPostCover
 
@@ -33,3 +33,8 @@ def create_blog_post_model_form(request):
         form = BlogPostModelForm()
 
     return render(request, template_name='create_blog_post_model_form.html', context={'form': form})
+
+
+def blog_detail(request, post_id):
+    post = get_object_or_404(BlogPost, id=post_id)
+    return render(request, template_name='blog_detail.html', context={'post': post})
