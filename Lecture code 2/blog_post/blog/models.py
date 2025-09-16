@@ -1,6 +1,8 @@
 from datetime import date
 from django.db import models
 
+from blog.choices import CATEGORY_CHOICES
+
 
 class Author(models.Model):
     first_name = models.CharField(verbose_name='First name', max_length=100)
@@ -38,15 +40,6 @@ class BlogPostAuthorThroughTable(models.Model):
 
 
 class BlogPost(models.Model):
-    title = models.CharField(verbose_name='სათაური', max_length=255)
-    text = models.TextField(verbose_name='ტექსტი')
-    is_active = models.BooleanField(verbose_name='აქტიურია', default=True)
-    created_at = models.DateTimeField(
-        verbose_name='შექმნის თარიღი', auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(
-        verbose_name='განახლების თარიღი', auto_now=True, null=True)
-    website = models.URLField(verbose_name='ვებ მისამართი', null=True)
-    document = models.FileField(upload_to='blog_post_documents/', null=True)
     authors = models.ManyToManyField(
         to="Author",
         related_name='blog_posts',
@@ -58,6 +51,17 @@ class BlogPost(models.Model):
         verbose_name='Authors 2',
         through='BlogPostAuthorThroughTable',
     )
+    title = models.CharField(verbose_name='სათაური', max_length=255)
+    text = models.TextField(verbose_name='ტექსტი')
+    is_active = models.BooleanField(verbose_name='აქტიურია', default=True)
+    created_at = models.DateTimeField(
+        verbose_name='შექმნის თარიღი', auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(
+        verbose_name='განახლების თარიღი', auto_now=True, null=True)
+    website = models.URLField(verbose_name='ვებ მისამართი', null=True)
+    document = models.FileField(upload_to='blog_post_documents/', null=True)
+
+    category = models.IntegerField(verbose_name='Category', choices=CATEGORY_CHOICES, null=True)
 
     def get_images(self):
         return self.images.all()
