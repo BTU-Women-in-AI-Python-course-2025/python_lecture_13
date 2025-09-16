@@ -26,6 +26,8 @@ class BlogPostForm(forms.Form):
 
 
 class BlogPostModelForm(forms.ModelForm):
+    cover = forms.ImageField(label="Cover")
+
     class Meta:
         model = BlogPost
-        fields = ['title', 'text', 'document', 'is_active']
+        fields = ['title', 'text', 'document', 'is_active', 'category', 'authors', 'cover']

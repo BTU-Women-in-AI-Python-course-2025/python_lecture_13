@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from blog.forms import BlogPostForm, BlogPostModelForm
-from blog.models import BlogPost
+from blog.models import BlogPost, BlogPostCover
 
 
 def create_blog_post(request):
@@ -23,7 +23,11 @@ def create_blog_post_model_form(request):
     if request.method == 'POST':
         form = BlogPostModelForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            blog_post = form.save()
+            cover = form.cleaned_data.get('cover', None)
+            if cover:
+                BlogPostCover.objects.create(blog_post=blog_post, image=cover)
+
             return redirect('success_page_blog_post_created')
     else:
         form = BlogPostModelForm()
