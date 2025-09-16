@@ -1,5 +1,7 @@
 from django import forms
 
+from blog.models import BlogPost
+
 
 class BlogPostForm(forms.Form):
     title = forms.CharField(
@@ -21,3 +23,9 @@ class BlogPostForm(forms.Form):
         )
     )
     is_active = forms.BooleanField(label="Is active")
+
+
+class BlogPostModelForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'text', 'document', 'is_active']
